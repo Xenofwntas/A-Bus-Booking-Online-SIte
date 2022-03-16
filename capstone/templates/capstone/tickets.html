@@ -1,0 +1,39 @@
+{% extends "capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div class="col d-flex justify-content-center" id="print">
+        <div class="card bg-  mb-3" style="max-width: 500px;">
+            <div class="card-header text-center">Purchase Information</div>
+            <div class="card-body">
+                <p class="card-text text-center" style="font-family: Georgia, 'Times New Roman', Times, serif;font-size: large;">{{request.user.first_name}} {{request.user.last_name}}</p>
+                <h5 class="card-title"> from <b><u>{{ route.departure }}</u></b> to <b><u>{{ route.destination}}</u></b> </h5>
+                <hr>
+                <p class="card-title">Day of departure</p>
+                <h5 class="card-text">{{ route.departureDay }}</h5>
+                <hr>
+                <p class="card-title">Time of departure</p>
+                <h5 class="card-text">{{ route.departureTime }}</h5>
+                <hr>
+                <p class="card-title">Day of arrival</p>
+                <h5 class="card-text">{{ route.destinationDay}} </h5>
+                <hr>
+                <p class="card-title">Estimated Time of arrival</p>
+                <h5 class="card-text">{{ route.destinationTime }}</h5>
+                <hr>
+                <p class="card-title">Seats for this Route</p>
+                <h5 class="card-text">{% for ticket in tickets %}{{ ticket.seat }} {% endfor %} ({{ ticketsNum }})</h5>
+                <hr>
+                <p class="card-title">Total Cost</p>
+                <h5 class="card-text">{{ totalPrice }} €</h5>
+                
+
+            </div>
+            
+          </div>
+        </div>
+        <div class="container text-center ">
+            <button class="btn btn-warning mb-3 btn-sm" onclick="printTicket()">Print</button>
+           </div>
+        <script src="{% static 'js/tickets.js' %}"></script>
+{% endblock %}

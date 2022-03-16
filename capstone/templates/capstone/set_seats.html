@@ -1,0 +1,85 @@
+{% extends "capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+<h1 class="text-center">Select your seat</h1>
+<hr>
+<div class="containerbus">
+    <div class="bus">
+        <!-- Check if seats are already taken and if so, change color and disable-->
+        <button onclick="saveSeat(this)" class="btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'A1'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'A1'%}disabled{%endif%}{%endfor%}>A1</button>
+        <button onclick="saveSeat(this)" class="float-end btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'B1'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'B1'%}disabled{%endif%}{%endfor%}>B1</button>
+        <br>
+        <br>
+        <button onclick="saveSeat(this)" class="btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'A2'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'A2'%}disabled{%endif%}{%endfor%}>A2</button>
+        <button onclick="saveSeat(this)" class="float-end btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'B2'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'B2'%}disabled{%endif%}{%endfor%}>B2</button>
+        <br>
+        <br>
+        <button onclick="saveSeat(this)" class="btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'A3'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'A3'%}disabled{%endif%}{%endfor%}>A3</button>
+        <button onclick="saveSeat(this)" class="float-end btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'B3'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'B3'%}disabled{%endif%}{%endfor%}>B3</button>
+        <br>
+        <br>
+        <button onclick="saveSeat(this)" class="btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'A4'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'A4'%}disabled{%endif%}{%endfor%}>A4</button>
+        <button onclick="saveSeat(this)" class="float-end btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'B4'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'B4'%}disabled{%endif%}{%endfor%}>B4</button>
+        <br>
+        <br>
+        <button onclick="saveSeat(this)" class="btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'A5'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'A5'%}disabled{%endif%}{%endfor%}>A5</button>
+        <button onclick="saveSeat(this)" class="float-end btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'B5'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'B5'%}disabled{%endif%}{%endfor%}>B5</button>
+        <br>
+        <br>
+        <button onclick="saveSeat(this)" class="btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'A6'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'A6'%}disabled{%endif%}{%endfor%}>A6</button>
+        <button onclick="saveSeat(this)" class="float-end btn btn-warning btn-sm {%for seat in seats%}{%if seat.seat == 'B6'%}btn-danger{%endif%}{%endfor%}" {%for seat in seats%}{%if seat.seat == 'B6'%}disabled{%endif%}{%endfor%}>B6</button>
+</div>
+</div>
+<hr>
+
+<form action="{% url 'tickets' route.id %}" method="post" class="text-center">
+  {% csrf_token %}
+<div id="hiddenTickets" hidden></div>
+<h5>Total Price: <span id="ticketsPrice">0</span> €</h5>
+<div class="container text-center p-3">
+    <button type="submit" class="btn btn-warning mb-3 btn-lg" id="seatButton">Buy Tickets</button>
+  </div>
+  <hr>
+</form>
+
+
+  <div class="row">
+    <div class="col-sm-6">
+        <h4 class="text-center">Departure</h4>
+        <div class="card bg-warning mb-3" style="max-width: 1000px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="{{route.departure.urlPic}}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{route.departure}}</h5>
+                    <p class="card-text">Date: {{route.departureDay}}</p>
+                    <p class="card-text">Departure Time: {{route.departureTime}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="text-center">Destination</h4>
+            <div class="card bg-warning mb-3" style="max-width: 1000px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="{{route.destination.urlPic}}" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{route.destination}}</h5>
+                        <p class="card-text">Arrival Date: {{route.destinationDay}}</p>
+                        <p class="card-text">Destination Time: {{route.destinationTime}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+</div>
+
+<script src="{% static 'js/set_seats.js' %}"></script>
+{% endblock %}

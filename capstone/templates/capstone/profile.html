@@ -1,0 +1,30 @@
+{% extends "capstone/layout.html" %}
+
+{% block body %}
+<h3 class="text-center">My Tickets</h3>
+<hr>
+<br>
+</table>
+<table class="table table-striped table-hover">
+    <thead>
+      <tr class="table-dark">
+        <th scope="col">from</th>
+        <th scope="col">to</th>
+        <th scope="col">date</th>
+        <th scope="col">time</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {%for route in routes%}
+      <tr class="table-secondary">
+        <td>{{route.departure}}</td>
+        <td>{{route.destination}}</td>
+        <td>{{route.departureDay}}</td>
+        <td>{{route.departureTime}}</td>
+        <td><a href="{%url 'view_tickets' route.id %}"><button class="btn btn-warning mb-3 btn-sm">Check Tickets</button></a></td>
+      </tr>
+      {%endfor%}
+
+{% endblock %}
+

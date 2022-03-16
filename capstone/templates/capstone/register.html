@@ -1,0 +1,45 @@
+{% extends "capstone/layout.html" %}
+
+{% block body %}
+<h2 style="text-align: center;">Sign Up</h2>
+<br>
+<br>
+
+
+<div class="container">
+    <form action="{% url 'register' %}" method="POST">
+        {% csrf_token %}
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" placeholder="Username" name="username">
+    <label for="floatingInput">Username</label>
+  </div>
+  <div class="form-floating mb-2">
+    <input type="text" class="form-control" id="floatingInput" placeholder="First Name" name="first_name">
+    <label for="floatingInput">First Name</label>
+  </div>
+  <div class="form-floating mb-4">
+    <input type="text" class="form-control" id="floatingInput" placeholder="Last Name" name="last_name">
+    <label for="floatingInput">Last Name</label>
+  </div>
+  <div class="form-floating mb-2">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+    <label for="floatingPassword">Password</label>
+  </div>
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="Confirm Password" name="confirmation">
+    <label for="floatingPassword">Confirm Password</label>
+  </div>
+<br>
+  <div class="container text-center p-3">
+    <button type="submit" class="btn btn-warning mb-3 btn-lg">Sign Up</button>
+  </div>
+
+</form>
+<div class="container text-center ">
+    You already have an account??
+<a href="{% url 'login' %}"><button class="btn btn-warning mb-3 btn-sm">Sign In</button></a>
+</div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+{% if user.is_authenticated is False %}
+<div class="container text-center joinUS">
+    <h1>Join us and choose your destination</h1>
+    <hr>
+{% else %}
+<div class="container text-center joinUS">
+    <h1>Choose your destination</h1>
+    <hr>
+{% endif %}
+<!--Carousel showing locations u can visit-->
+<div class="container">
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <img src="{% static '/img/road.jpg'%}" class="d-block w-100 imgDarker" alt="...">
+              <div class="carousel-caption d-none d-md-block">
+                  <h5 class="carouselHeader">TRAVEL WITH US</h5>
+                  <p class="carouselText">Join us today and experience the best bus trip of your life</p>
+                </div>
+            </div>
+          {% for place in places %}
+              <div class="carousel-item">
+                <img src="{{place.urlPic}}" class="d-block w-100 imgDarker" alt="Image of a beautiful city">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5 class="carouselHeader">{{ place.place }}</h5>
+                  <b class="carouselText">{{ place.description|truncatewords:8 }}...</b>
+                </div>
+              </div>
+          {% endfor %}
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+<br>
+{% if user.is_authenticated is False %}
+
+    You need to be a member to travel with us
+    <br>
+    <br>
+    <a href="{% url 'register' %}"><button class="btn btn-warning mb-3 btn-lg">Join Us</button></a>
+   </div>
+</div>
+{% else %}
+    Plan your trip now
+    <br>
+    <br>
+    <a href="{% url 'travel' %}"><button class="btn btn-warning mb-3 btn-lg">Travel</button></a>
+    </div>
+</div>
+{% endif %}
+<hr>
+{% endblock %}

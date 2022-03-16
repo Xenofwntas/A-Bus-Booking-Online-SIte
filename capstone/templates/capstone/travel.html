@@ -1,0 +1,78 @@
+{% extends "capstone/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<br>
+<div class="container" style="background-color: rgb(255, 208, 0);">
+<h2 class="text-center">Travel</h2>
+
+<hr>
+<form id="routeForm" method="post" action="{% url 'getSeats' %}">
+    {% csrf_token %}
+<!--Choose departure for the trip-->
+<h5>From</h5>
+<select id="jsDeparture" class="form-select form-select-lg mb-2" aria-label=".form-select-lg example" name="departurePlace" onchange="if (this.selectedIndex) getTime();">
+    <option selected disabled>Choose Departure</option>
+    {% for place in places %}
+    <option value="{{place.place}}" class="form-contol">{{place.place}}</option>
+    {% endfor %}
+</select>
+
+<!--Choose destination for the trip-->
+<h5>To</h5>
+<select id="jsDestination" class="form-select form-select-lg mb-2" aria-label=".form-select-lg example" name="destinationPlace" onchange="if (this.selectedIndex) getTime();">
+    <option selected disabled>Select Destination</option>
+    {% for place in places %}
+    <option value="{{place.place}}" class="form-contol">{{place.place}}</option>
+    {% endfor %}
+</select>
+<!--Choose date for the trip-->
+<h5>On</h5>
+<input type="text"  id="datepicker" class="form-control" placeholder="Select Date" name="date" value="Select Date" onchange="getTime();">
+
+<!--If no trips are available for that date-->
+<span id="noTrips"></span>
+
+<!--Choose time for the trip-->
+<h5>At</h5>
+<select name="departureTime" id="RouteTimes" class="form-select form-select-sm mb-2" onchange="enableBtn()">
+    <option selected disabled>Choose Time of Departure</option>
+</select>
+
+<div class="container text-center p-3">
+    <button type="submit" class="btn btn-dark mb-3 btn-lg" disabled id="submitBtn"> <span style="color: rgb(255, 208, 0);">Choose Seats</span></button>
+</div>
+</form>
+</div>
+<br>
+{%if visit%}
+<div class="container text-center ">
+    <a href="{% url 'destinations' %}"><button class="btn btn-dark mb-3"><span style="color: rgb(255, 208, 0);">Back to destinations</span></button></a>
+    </div>
+{%endif%}
+<br>
+<div class="text-center">
+<h2>Travel with our Luxurious Electric Buses</h2>
+<hr>
+<img src="{% static '/img/large.jpg'%}" class="img-fluid" alt="a Luxurious Electric Bus">
+</div>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr">// flatpickr</script>
+
+<script src="{% static 'js/travel.js' %}"></script>
+{% endblock %}
+
+{% block script %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+{% endblock %}
